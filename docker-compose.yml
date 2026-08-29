@@ -1,7 +1,33 @@
 services:
   laminas:
     build: .
+    container_name: platform-laminas
     ports:
-     - "8080:80"
+      - "8080:80"
     volumes:
-     - .:/var/www
+      - .:/var/www
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: platform
+      DB_USERNAME: platform
+      DB_PASSWORD: platform
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: platform-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: platform
+      MYSQL_USER: platform
+      MYSQL_PASSWORD: platform
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - platform_mysql_data:/var/lib/mysql
+
+volumes:
+  platform_mysql_data:
