@@ -16,7 +16,7 @@ return [
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => \User\Controller\AuthController::class,
                         'action'     => 'index',
                     ],
                 ],
